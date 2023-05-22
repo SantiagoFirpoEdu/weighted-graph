@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 
 public class WeightedGraph
@@ -50,9 +52,9 @@ public class WeightedGraph
             {
                 if (!alreadyPrinted[i][j])
                 {
-                    builder.append("\t").append(adjacencyList[i].get(j).v).append("--").append(adjacencyList[i].get(j).w).append("  [label=").append(adjacencyList[i].get(j).weight).append("]").append(";").append(System.lineSeparator());
-                    alreadyPrinted[adjacencyList[i].get(j).v][adjacencyList[i].get(j).w] = true;
-                    alreadyPrinted[adjacencyList[i].get(j).w][adjacencyList[i].get(j).v] = true;
+                    builder.append("\t").append(adjacencyList[i].get(j).from).append("--").append(adjacencyList[i].get(j).to).append("  [label=").append(adjacencyList[i].get(j).weight).append("]").append(";").append(System.lineSeparator());
+                    alreadyPrinted[adjacencyList[i].get(j).from][adjacencyList[i].get(j).to] = true;
+                    alreadyPrinted[adjacencyList[i].get(j).to][adjacencyList[i].get(j).from] = true;
                 }
             }
         }
@@ -85,14 +87,36 @@ public class WeightedGraph
 
     static class Edge
     {
-        public int v;
-        public int w;
+        public int from;
+        public int to;
         public int weight;
 
-        public Edge(int v, int w, int weight)
+        @Override
+        public int hashCode()
         {
-            this.v = v;
-            this.w = w;
+            return Objects.hash(from, to, weight);
+        }
+
+        @Override
+        public boolean equals(Object o)
+        {
+            if (this == o)
+            {
+                return true;
+            }
+            if (o instanceof Edge edge)
+            {
+                return from == edge.from
+                    && to == edge.to
+                    && weight == edge.weight;
+            }
+            return false;
+        }
+
+        public Edge(int from, int to, int weight)
+        {
+            this.from = from;
+            this.to = to;
             this.weight = weight;
         }
     }
