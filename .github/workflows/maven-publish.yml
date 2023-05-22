@@ -15,5 +15,5 @@ jobs:
         java-version: '18'
         distribution: 'corretto'
         cache: maven
-    - name: Run unit tests
+    - name: Test build
       run: mvn -B package --file pom.xml
