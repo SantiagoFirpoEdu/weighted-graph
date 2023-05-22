@@ -1,16 +1,17 @@
 public class BreadthFirstSearch
 {
-    public BreadthFirstSearch(WeightedGraph g, int verticeOrigem)
+    public BreadthFirstSearch(WeightedGraph weightedGraph, int startingVertice)
     {
         //TODO: implement this
     }
 
-    public void imprimirResultado()
+    public void debugPrintResult()
     {
+        //TODO: implement this
         //deve mostrar o caminho percorrido para achar todos os vertices e as distancias
         //exibir os arrays visitados, antecessor e distancia
     }
     private boolean[] visited;
     private int[] predecessor;
-    private int[] distance; //considerando 1 para cada aresta percorrida
+    private int[] distance; //considering 1 for each edge
 }

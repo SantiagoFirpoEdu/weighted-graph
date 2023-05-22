@@ -3,7 +3,6 @@ import java.util.Optional;
 
 public class WeightedGraph
 {
-
     public WeightedGraph(int edgeAmount)
     {
         this.edgeAmount = edgeAmount;
@@ -44,16 +43,16 @@ public class WeightedGraph
                    .append(";")
                    .append(System.lineSeparator());
         }
-        boolean[][] jaImpresso = new boolean[edgeAmount][edgeAmount];
+        boolean[][] alreadyPrinted = new boolean[edgeAmount][edgeAmount];
         for (int i = 0; i < edgeAmount; i++)
         {
             for (int j = 0; j < adjacencyList[i].size(); j++)
             {
-                if (!jaImpresso[i][j])
+                if (!alreadyPrinted[i][j])
                 {
                     builder.append("\t").append(adjacencyList[i].get(j).v).append("--").append(adjacencyList[i].get(j).w).append("  [label=").append(adjacencyList[i].get(j).weight).append("]").append(";").append(System.lineSeparator());
-                    jaImpresso[adjacencyList[i].get(j).v][adjacencyList[i].get(j).w] = true;
-                    jaImpresso[adjacencyList[i].get(j).w][adjacencyList[i].get(j).v] = true;
+                    alreadyPrinted[adjacencyList[i].get(j).v][adjacencyList[i].get(j).w] = true;
+                    alreadyPrinted[adjacencyList[i].get(j).w][adjacencyList[i].get(j).v] = true;
                 }
             }
         }
@@ -61,7 +60,7 @@ public class WeightedGraph
         return builder.toString();
     }
 
-    public void removerAresta(int v, int w)
+    public void removeEdge(int v, int w)
     {
         //implementar
     }

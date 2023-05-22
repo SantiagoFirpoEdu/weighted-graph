@@ -1,8 +1,8 @@
 public class DepthFirstSearch
 {
-    public int[] preordem;
-    public int[] posordem;
-    public DepthFirstSearch(WeightedGraph g, int verticeOrigem)
+    public int[] preOrder;
+    public int[] postOrder;
+    public DepthFirstSearch(WeightedGraph weightedGraph, int startingVertice)
     {
         //implementar
     }
