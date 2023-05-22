@@ -2,7 +2,7 @@ public class DepthFirstSearch
 {
     public int[] preordem;
     public int[] posordem;
-    public DepthFirstSearch(GrafoValorado g, int verticeOrigem)
+    public DepthFirstSearch(WeightedGraph g, int verticeOrigem)
     {
         //implementar
     }
@@ -13,5 +13,5 @@ public class DepthFirstSearch
         //preordem e posordem devem mostrar o caminho percorrido em pre e pos ordem;
     }
     private boolean[] visited;
-    private int[] antecessor;
+    private int[] predecessor;
 }

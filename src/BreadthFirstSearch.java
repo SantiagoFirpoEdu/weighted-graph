@@ -1,6 +1,6 @@
 public class BreadthFirstSearch
 {
-    public BreadthFirstSearch(GrafoValorado g, int verticeOrigem)
+    public BreadthFirstSearch(WeightedGraph g, int verticeOrigem)
     {
         //TODO: implement this
     }
