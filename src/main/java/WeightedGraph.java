@@ -1,15 +1,16 @@
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class WeightedGraph
 {
-    public WeightedGraph(int edgeAmount)
+    public WeightedGraph(int nodeAmount)
     {
-        this.edgeAmount = edgeAmount;
-        this.adjacencyList = new ArrayList[this.edgeAmount];
-        for (int i = 0; i < this.edgeAmount; i++)
+        this.nodeAmount = nodeAmount;
+        this.adjacencyList = new ArrayList[this.nodeAmount];
+        for (int i = 0; i < this.nodeAmount; i++)
         {
             this.adjacencyList[i] = new ArrayList<>();
         }
@@ -38,15 +39,15 @@ public class WeightedGraph
     public String toDot()
     {
         StringBuilder builder = new StringBuilder("graph G { " + System.lineSeparator());
-        for (int i = 0; i < edgeAmount; i++)
+        for (int i = 0; i < nodeAmount; i++)
         {
             builder.append("\t")
                    .append(i)
                    .append(";")
                    .append(System.lineSeparator());
         }
-        boolean[][] alreadyPrinted = new boolean[edgeAmount][edgeAmount];
-        for (int i = 0; i < edgeAmount; i++)
+        boolean[][] alreadyPrinted = new boolean[nodeAmount][nodeAmount];
+        for (int i = 0; i < nodeAmount; i++)
         {
             for (int j = 0; j < adjacencyList[i].size(); j++)
             {
@@ -64,7 +65,11 @@ public class WeightedGraph
 
     public void removeEdge(int v, int w)
     {
-        //implementar
+        adjacencyList[v]
+                 .stream()
+                .f
+                 .filter(entry -> entry.from != v && entry.to != w)
+                 .toList();
     }
 
     public Optional<Integer> getDegree(int vertice)
@@ -75,14 +80,19 @@ public class WeightedGraph
 
     public int getVerticesAmount()
     {
-        //implementar
+        //TODO: implement this
         return 0;
     }
 
     public int getEdgeAmount()
     {
-        //implementar
+        //TODO: implement this
         return 0;
+    }
+
+    public Edge[] getEdges(int node)
+    {
+        return (Edge[]) adjacencyList[node].toArray();
     }
 
     static class Edge
@@ -121,5 +131,5 @@ public class WeightedGraph
         }
     }
     private final ArrayList<Edge>[] adjacencyList;
-    private int edgeAmount;
+    private int nodeAmount;
 }
