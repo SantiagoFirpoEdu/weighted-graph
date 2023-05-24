@@ -5,10 +5,10 @@ public class BreadthFirstSearch
 {
     public BreadthFirstSearch(WeightedGraph weightedGraph, int startingVertice)
     {
-        int edgeAmount = weightedGraph.getEdgeAmount();
-        visited = new boolean[edgeAmount];
-        predecessor = new int[edgeAmount];
-        distance = new int[edgeAmount];
+        int nodeAmount = weightedGraph.getNodeAmount();
+        visited = new boolean[nodeAmount];
+        predecessor = new int[nodeAmount];
+        distance = new int[nodeAmount];
         Queue<Integer> queue = new LinkedList<>();
         queue.add(startingVertice);
 
@@ -40,7 +40,7 @@ public class BreadthFirstSearch
         //deve mostrar o caminho percorrido para achar todos os vertices e as distancias
         //exibir os arrays visitados, antecessor e distancia
     }
-    private boolean[] visited;
-    private int[] predecessor;
-    private int[] distance; //considering 1 for each edge
+    private final boolean[] visited;
+    private final int[] predecessor;
+    private final int[] distance; //considering 1 for each edge
 }

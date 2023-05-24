@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class WeightedGraph
@@ -27,13 +24,16 @@ public class WeightedGraph
         System.out.println(g.toDot());
     }
 
-    public void addEdge(int v, int w, int weight)
+    public void addEdge(int from, int to, int weight)
     {
-        Edge e1 = new Edge(v, w, weight);
-        adjacencyList[v].add(e1);
+        Edge e1 = new Edge(from, to, weight);
+        adjacencyList[from].add(e1);
 
-        Edge e2 = new Edge(w, v, weight);
-        adjacencyList[w].add(e2);
+        Edge e2 = new Edge(to, from, weight);
+        adjacencyList[to].add(e2);
+
+        nodes.add(from);
+        nodes.add(to);
     }
 
     public String toDot()
@@ -65,34 +65,41 @@ public class WeightedGraph
 
     public void removeEdge(int v, int w)
     {
-        adjacencyList[v]
+        adjacencyList[v] =
+                adjacencyList[v]
                  .stream()
-                .f
                  .filter(entry -> entry.from != v && entry.to != w)
-                 .toList();
+                 .collect(Collectors.toList());
     }
 
-    public Optional<Integer> getDegree(int vertice)
+    public int getDegree(int vertice)
     {
-        //implementar
-        return Optional.of(0);
+        return adjacencyList[vertice].size();
     }
 
-    public int getVerticesAmount()
+    public int getEdgeAmount(int node)
     {
-        //TODO: implement this
-        return 0;
+        return adjacencyList[node].size();
     }
 
-    public int getEdgeAmount()
+    public int getNodeAmount()
     {
-        //TODO: implement this
-        return 0;
+        return nodeAmount;
     }
 
-    public Edge[] getEdges(int node)
+    public List<Edge> getEdges(int node)
     {
-        return (Edge[]) adjacencyList[node].toArray();
+        return adjacencyList[node];
+    }
+
+    public HashSet<Integer> getNodes()
+    {
+        return nodes;
+    }
+
+    public void addNode(int node)
+    {
+        nodes.add(node);
     }
 
     static class Edge
@@ -130,6 +137,8 @@ public class WeightedGraph
             this.weight = weight;
         }
     }
-    private final ArrayList<Edge>[] adjacencyList;
+
+    private final List<Edge>[] adjacencyList;
+    private final HashSet<Integer> nodes = new HashSet<>();
     private int nodeAmount;
 }
