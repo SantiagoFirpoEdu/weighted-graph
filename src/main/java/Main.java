@@ -10,5 +10,12 @@ public class Main
         graph.addNode(2);
         graph.addNode(3);
         graph.addNode(4);
+
+        graph.addEdge(0, 4, 2);
+        graph.addEdge(1, 0, 3);
+        graph.addEdge(3, 2, 4);
+        graph.addEdge(4, 3, 5);
+
+        GraphFromFile.writeGraphToFile(graph, "./testGraph");
     }
 }
