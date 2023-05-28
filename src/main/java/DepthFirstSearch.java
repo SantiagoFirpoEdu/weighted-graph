@@ -25,7 +25,7 @@ public class DepthFirstSearch
 
         while (!queue.isEmpty())
         {
-            int toBeVisited = queue.removeFirst();
+            int toBeVisited = queue.removeLast();
             visited.add(toBeVisited);
 
             var edges = graph.getEdges(toBeVisited);
