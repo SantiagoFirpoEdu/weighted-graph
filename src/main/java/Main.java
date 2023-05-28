@@ -16,6 +16,13 @@ public class Main
         graph.addEdge(3, 2, 4);
         graph.addEdge(4, 3, 5);
 
+        var breadthFirst = new BreadthFirstSearch(graph, 0);
+        breadthFirst.debugPrintResult();
+
+        var depthFirst = new DepthFirstSearch(graph, 0);
+        depthFirst.debugPrintResult();
+
+
         GraphFromFile.writeGraphToFile(graph, "./testGraph");
     }
 }
