@@ -32,6 +32,10 @@ public class BreadthFirstSearch
                     int currentDistance = distances.get(neighbor);
                     distances.put(neighbor, currentDistance + edge.weight);
                 }
+                else
+                {
+                    distances.put(neighbor, edge.weight);
+                }
                 queue.add(neighbor);
             }
         }

@@ -6,11 +6,7 @@ public class WeightedGraph
     public WeightedGraph(int nodeAmount)
     {
         this.nodeAmount = nodeAmount;
-        this.adjacencyList = new ArrayList[this.nodeAmount];
-        for (int i = 0; i < this.nodeAmount; i++)
-        {
-            this.adjacencyList[i] = new ArrayList<>();
-        }
+        this.adjacencyList = new HashMap<>();
     }
 
     public static void main(String[] args)
@@ -20,66 +16,48 @@ public class WeightedGraph
         g.addEdge(0, 2, 10);
         g.addEdge(1, 2, 99);
         g.addEdge(0, 3, 200);
-
-        System.out.println(g.toDot());
     }
 
     public void addEdge(int from, int to, int weight)
     {
         Edge e1 = new Edge(from, to, weight);
-        adjacencyList[from].add(e1);
+        List<Edge> edges = findOrAddEdgeList(from);
+        edges.add(e1);
 
         Edge e2 = new Edge(to, from, weight);
-        adjacencyList[to].add(e2);
+        findOrAddEdgeList(to).add(e2);
 
         nodes.add(from);
         nodes.add(to);
     }
 
-    public String toDot()
+    private List<Edge> findOrAddEdgeList(int from)
     {
-        StringBuilder builder = new StringBuilder("graph G { " + System.lineSeparator());
-        for (int i = 0; i < nodeAmount; i++)
+        if (!adjacencyList.containsKey(from))
         {
-            builder.append("\t")
-                   .append(i)
-                   .append(";")
-                   .append(System.lineSeparator());
+            adjacencyList.put(from, new ArrayList<>());
         }
-        boolean[][] alreadyPrinted = new boolean[nodeAmount][nodeAmount];
-        for (int i = 0; i < nodeAmount; i++)
-        {
-            for (int j = 0; j < adjacencyList[i].size(); j++)
-            {
-                if (!alreadyPrinted[i][j])
-                {
-                    builder.append("\t").append(adjacencyList[i].get(j).from).append("--").append(adjacencyList[i].get(j).to).append("  [label=").append(adjacencyList[i].get(j).weight).append("]").append(";").append(System.lineSeparator());
-                    alreadyPrinted[adjacencyList[i].get(j).from][adjacencyList[i].get(j).to] = true;
-                    alreadyPrinted[adjacencyList[i].get(j).to][adjacencyList[i].get(j).from] = true;
-                }
-            }
-        }
-        builder.append("}");
-        return builder.toString();
+        List<Edge> edges = adjacencyList.get(from);
+        return edges;
     }
 
-    public void removeEdge(int v, int w)
+    public void removeEdge(int from, int to)
     {
-        adjacencyList[v] =
-                adjacencyList[v]
-                 .stream()
-                 .filter(entry -> entry.from != v && entry.to != w)
-                 .collect(Collectors.toList());
+        List<Edge> neighbors = adjacencyList.get(from);
+        List<Edge> otherNeighbors = adjacencyList.get(to);
+
+        neighbors.removeIf(edge -> edge.to == to);
+        otherNeighbors.removeIf(edge -> edge.to == from);
     }
 
     public int getDegree(int vertice)
     {
-        return adjacencyList[vertice].size();
+        return adjacencyList.get(vertice).size();
     }
 
     public int getEdgeAmount(int node)
     {
-        return adjacencyList[node].size();
+        return adjacencyList.get(node).size();
     }
 
     public int getNodeAmount()
@@ -89,10 +67,10 @@ public class WeightedGraph
 
     public List<Edge> getEdges(int node)
     {
-        return adjacencyList[node];
+        return adjacencyList.get(node);
     }
 
-    public HashSet<Integer> getNodes()
+    public Set<Integer> getNodes()
     {
         return nodes;
     }
@@ -138,7 +116,7 @@ public class WeightedGraph
         }
     }
 
-    private final List<Edge>[] adjacencyList;
+    private final HashMap<Integer, List<Edge>> adjacencyList;
     private final HashSet<Integer> nodes = new HashSet<>();
     private int nodeAmount;
 }
