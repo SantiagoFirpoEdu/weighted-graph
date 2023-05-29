@@ -2,8 +2,6 @@ import java.util.*;
 
 public class DepthFirstSearch
 {
-    public int[] preOrder;
-    public int[] postOrder;
     public DepthFirstSearch(WeightedGraph weightedGraph, int startingVertice)
     {
         graph = weightedGraph;
@@ -13,20 +11,27 @@ public class DepthFirstSearch
         postOrder = new int[nodeAmount];
         Arrays.fill(preOrder, -1);
         Arrays.fill(postOrder, -1);
-        ExecuteSearch();
+        executeSearch();
     }
 
-    private void ExecuteSearch()
+    private void executeSearch()
     {
         visited = new HashSet<>();
         predecessors = new HashMap<>();
-        Deque<Integer> queue = new ArrayDeque<>();
-        queue.addFirst(startingVertice);
+        Deque<Integer> stack = new ArrayDeque<>();
+        stack.push(startingVertice);
 
-        while (!queue.isEmpty())
+        while (!stack.isEmpty())
         {
-            int toBeVisited = queue.removeLast();
+            int toBeVisited = stack.pop();
+
+            if (visited.contains(toBeVisited))
+            {
+                continue;
+            }
+
             visited.add(toBeVisited);
+            preOrder[preorderIndex++] = toBeVisited;
 
             var edges = graph.getEdges(toBeVisited);
             for (WeightedGraph.Edge edge : edges)
@@ -36,17 +41,12 @@ public class DepthFirstSearch
                 {
                     continue;
                 }
-                //TODO (Santiago Firpo) fix post order
-                postOrder[postOrderIndex] = neighbor;
-                ++postOrderIndex;
 
-                visited.add(neighbor);
                 predecessors.put(neighbor, toBeVisited);
-                ++preorderIndex;
-                preOrder[preorderIndex] = neighbor;
-
-                queue.add(neighbor);
+                stack.push(neighbor);
             }
+
+            postOrder[postOrderIndex++] = toBeVisited;
         }
     }
 
@@ -85,11 +85,14 @@ public class DepthFirstSearch
             System.out.println(element);
         }
     }
+
     private final WeightedGraph graph;
+    private final int startingVertice;
+    public int[] preOrder;
+    public int[] postOrder;
     private HashSet<Integer> visited;
     private HashMap<Integer, Integer> predecessors;
-
-    private final int startingVertice;
     private int preorderIndex;
     private int postOrderIndex;
+
 }
