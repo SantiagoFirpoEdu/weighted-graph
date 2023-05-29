@@ -1,11 +1,10 @@
-import org.w3c.dom.Node;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class GraphFromFile
 {
+
     public static WeightedGraph readGraphFile(String filePath)
     {
         //TODO: implement this
@@ -16,12 +15,12 @@ public class GraphFromFile
     {
         try
         {
-            FileWriter fileWriter = new FileWriter(new File(filePath+".txt"));
+            FileWriter fileWriter = new FileWriter(new File(filePath + ".txt"));
             fileWriter.write(graph.getNodeAmount() + "\n");
-            for (int node: graph.getNodes().stream().toList())
+            for (int node : graph.getNodes().stream().toList())
             {
                 fileWriter.write(node + " - ");
-                for (WeightedGraph.Edge edge: graph.getEdges(node))
+                for (WeightedGraph.Edge edge : graph.getEdges(node))
                 {
                     fileWriter.write(edge.from + " " + edge.to + " " + edge.weight + "|");
                 }
@@ -38,5 +37,7 @@ public class GraphFromFile
         return true;
     }
 
-    private GraphFromFile() {}
+    private GraphFromFile()
+    {
+    }
 }
