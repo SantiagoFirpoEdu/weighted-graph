@@ -3,15 +3,15 @@ import java.util.stream.Collectors;
 
 public class WeightedGraph
 {
-    public WeightedGraph(int nodeAmount)
+    public WeightedGraph()
     {
-        this.nodeAmount = nodeAmount;
         this.adjacencyList = new HashMap<>();
+        nodes = new HashSet<>();
     }
 
     public static void main(String[] args)
     {
-        WeightedGraph g = new WeightedGraph(4);
+        WeightedGraph g = new WeightedGraph();
         g.addEdge(0, 1, 33);
         g.addEdge(0, 2, 10);
         g.addEdge(1, 2, 99);
@@ -62,12 +62,13 @@ public class WeightedGraph
 
     public int getNodeAmount()
     {
-        return nodeAmount;
+        return nodes.size();
     }
 
     public List<Edge> getEdges(int node)
     {
-        return adjacencyList.get(node);
+        List<Edge> edges = adjacencyList.get(node);
+        return edges != null ? edges : new ArrayList<>();
     }
 
     public Set<Integer> getNodes()
@@ -117,6 +118,5 @@ public class WeightedGraph
     }
 
     private final HashMap<Integer, List<Edge>> adjacencyList;
-    private final HashSet<Integer> nodes = new HashSet<>();
-    private int nodeAmount;
+    private final HashSet<Integer> nodes;
 }

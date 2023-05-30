@@ -1,6 +1,10 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 public class GraphFromFile
 {
@@ -13,21 +17,21 @@ public class GraphFromFile
 
     public static boolean writeGraphToFile(WeightedGraph graph, String filePath)
     {
-        try
+        try (BufferedWriter writer = Files.newBufferedWriter(Path.of((filePath + ".txt"))))
         {
-            FileWriter fileWriter = new FileWriter(new File(filePath + ".txt"));
-            fileWriter.write(graph.getNodeAmount() + "\n");
-            for (int node : graph.getNodes().stream().toList())
+            writer.write(graph.getNodeAmount() + "\n");
+            for (int node : graph.getNodes())
             {
-                fileWriter.write(node + " - ");
-                for (WeightedGraph.Edge edge : graph.getEdges(node))
+                writer.write(node + " - ");
+                List<WeightedGraph.Edge> edges = graph.getEdges(node);
+                for (WeightedGraph.Edge edge : edges)
                 {
-                    fileWriter.write(edge.from + " " + edge.to + " " + edge.weight + "|");
+                    writer.write(edge.from + " " + edge.to + " " + edge.weight + "|");
                 }
-                fileWriter.write("\n");
+                writer.write("\n");
 
             }
-            fileWriter.close();
+            writer.close();
         }
         catch (IOException e)
         {
