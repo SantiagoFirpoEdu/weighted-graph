@@ -6,11 +6,10 @@ public class DepthFirstSearch
     {
         graph = weightedGraph;
         this.startingVertice = startingVertice;
-        int nodeAmount = weightedGraph.getNodeAmount();
-        preOrder = new int[nodeAmount];
-        postOrder = new int[nodeAmount];
-        Arrays.fill(preOrder, -1);
-        Arrays.fill(postOrder, -1);
+        preOrder = new ArrayList<>();
+        postOrder = new ArrayList<>();
+        Collections.fill(preOrder, -1);
+        Collections.fill(postOrder, -1);
         executeSearch();
     }
 
@@ -31,7 +30,7 @@ public class DepthFirstSearch
             }
 
             visited.add(toBeVisited);
-            preOrder[preorderIndex++] = toBeVisited;
+            preOrder.add(toBeVisited);
 
             var edges = graph.getEdges(toBeVisited);
             boolean allNeighborsVisited = true;
@@ -49,17 +48,18 @@ public class DepthFirstSearch
 
             if (allNeighborsVisited)
             {
-                postOrder[postOrderIndex++] = toBeVisited;
+                postOrder.add(toBeVisited);
             }
         }
 
         // Reverse the post-order array
         int i = 0;
         int j = postOrderIndex - 1;
-        while (i < j) {
-            int temp = postOrder[i];
-            postOrder[i] = postOrder[j];
-            postOrder[j] = temp;
+        while (i < j)
+        {
+            int temp = postOrder.get(i);
+            postOrder.set(i, postOrder.get(j));
+            postOrder.set(j, temp);
             i++;
             j--;
         }
@@ -105,8 +105,8 @@ public class DepthFirstSearch
 
     private final WeightedGraph graph;
     private final int startingVertice;
-    public int[] preOrder;
-    public int[] postOrder;
+    public List<Integer> preOrder;
+    public List<Integer> postOrder;
     private HashSet<Integer> visited;
     private HashMap<Integer, Integer> predecessors;
     private int preorderIndex;
