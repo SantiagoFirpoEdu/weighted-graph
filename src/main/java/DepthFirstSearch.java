@@ -56,29 +56,29 @@ public class DepthFirstSearch
         //imprimir os arrais de visitados, antecessor, preordem e posordem.
         //preordem e posordem devem mostrar o caminho percorrido em pre e pos ordem;
 
-        System.out.println("Depth-first search results: ");
+        System.out.println("\n   -------------------   \nDepth-first search results: ");
 
-        System.out.println("Visited nodes:");
+        System.out.println("\n- Visited nodes: \n");
         for (int nodeId : visited)
         {
-            System.out.printf("Visited node of number %d%n", nodeId);
+            System.out.printf(" Visited node of number %d%n", nodeId);
         }
 
-        System.out.println("Predecessors: ");
+        System.out.println("\n- Predecessors: \n");
         Set<Map.Entry<Integer, Integer>> predecessorsEntries = predecessors.entrySet();
         for (var predecessorKeyValue : predecessorsEntries)
         {
             System.out.printf(" Predecessor of node %d is %d%n", predecessorKeyValue.getKey(), predecessorKeyValue.getValue());
         }
 
-        System.out.println("Preorder: ");
+        System.out.println("\n- Preorder: \n");
 
         for (int element : preOrder)
         {
             System.out.println(element);
         }
 
-        System.out.println("Post order: ");
+        System.out.println("\n- Post order: \n");
 
         for (int element : postOrder)
         {

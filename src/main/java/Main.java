@@ -4,7 +4,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        WeightedGraph graph = new WeightedGraph(5);
+        WeightedGraph graph = new WeightedGraph(14);
         graph.addNode(0);
         graph.addNode(1);
         graph.addNode(2);

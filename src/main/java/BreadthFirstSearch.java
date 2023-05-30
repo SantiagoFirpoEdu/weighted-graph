@@ -47,22 +47,22 @@ public class BreadthFirstSearch
         //deve mostrar o caminho percorrido para achar todos os vertices e as distancias
         //exibir os arrays visitados, antecessor e distancia
 
-        System.out.println("Breadth-first search results: ");
+        System.out.println("   -------------------   \nBreadth-first search results: ");
 
-        System.out.println("Visited nodes:");
+        System.out.println("\n- Visited nodes: \n");
         for (int nodeId : visited)
         {
-            System.out.printf("Visited node of number %d%n", nodeId);
+            System.out.printf(" Visited node of number %d%n", nodeId);
         }
 
-        System.out.println("Predecessors: ");
+        System.out.println("\n- Predecessors: \n ");
         Set<Map.Entry<Integer, Integer>> predecessorsEntries = predecessors.entrySet();
         for (var predecessorKeyValue : predecessorsEntries)
         {
             System.out.printf(" Predecessor of node %d is %d%n", predecessorKeyValue.getKey(), predecessorKeyValue.getValue());
         }
 
-        System.out.println("Distances: ");
+        System.out.println("\n- Distances: \n ");
         Set<Map.Entry<Integer, Integer>> distancesEntries = distances.entrySet();
         for (var distanceKeyValue : distancesEntries)
         {
