@@ -18,12 +18,12 @@ public class DepthFirstSearch
     {
         visited = new HashSet<>();
         predecessors = new HashMap<>();
-        Deque<Integer> stack = new ArrayDeque<>();
-        stack.push(startingVertice);
+        Deque<Integer> openList = new ArrayDeque<>();
+        openList.push(startingVertice);
 
-        while (!stack.isEmpty())
+        while (!openList.isEmpty())
         {
-            int toBeVisited = stack.pop();
+            int toBeVisited = openList.pop();
 
             if (visited.contains(toBeVisited))
             {
@@ -34,21 +34,38 @@ public class DepthFirstSearch
             preOrder[preorderIndex++] = toBeVisited;
 
             var edges = graph.getEdges(toBeVisited);
+            boolean allNeighborsVisited = true;
+
             for (WeightedGraph.Edge edge : edges)
             {
                 int neighbor = edge.to;
-                if (visited.contains(neighbor))
+                if (!visited.contains(neighbor))
                 {
-                    continue;
+                    predecessors.put(neighbor, toBeVisited);
+                    openList.push(neighbor);
+                    allNeighborsVisited = false;
                 }
-
-                predecessors.put(neighbor, toBeVisited);
-                stack.push(neighbor);
             }
 
-            postOrder[postOrderIndex++] = toBeVisited;
+            if (allNeighborsVisited)
+            {
+                postOrder[postOrderIndex++] = toBeVisited;
+            }
+        }
+
+        // Reverse the post-order array
+        int i = 0;
+        int j = postOrderIndex - 1;
+        while (i < j) {
+            int temp = postOrder[i];
+            postOrder[i] = postOrder[j];
+            postOrder[j] = temp;
+            i++;
+            j--;
         }
     }
+
+
 
     public void debugPrintResult()
     {
