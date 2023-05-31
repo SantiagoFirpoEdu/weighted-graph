@@ -19,6 +19,7 @@ public class DepthFirstSearch
         predecessors = new HashMap<>();
         Deque<Integer> openList = new ArrayDeque<>();
         openList.push(startingVertice);
+        Deque<Integer> postOrderTodo = new ArrayDeque<>();
 
         while (!openList.isEmpty())
         {
@@ -32,9 +33,9 @@ public class DepthFirstSearch
             visited.add(toBeVisited);
             preOrder.add(toBeVisited);
 
-            var edges = graph.getEdges(toBeVisited);
             boolean allNeighborsVisited = true;
 
+            var edges = graph.getEdges(toBeVisited);
             for (WeightedGraph.Edge edge : edges)
             {
                 int neighbor = edge.to;
@@ -50,21 +51,18 @@ public class DepthFirstSearch
             {
                 postOrder.add(toBeVisited);
             }
+            else
+            {
+                postOrderTodo.push(toBeVisited);
+            }
         }
 
-        // Reverse the post-order array
-        int i = 0;
-        int j = postOrderIndex - 1;
-        while (i < j)
+        while (!postOrderTodo.isEmpty())
         {
-            int temp = postOrder.get(i);
-            postOrder.set(i, postOrder.get(j));
-            postOrder.set(j, temp);
-            i++;
-            j--;
+            var currentPostOrder = postOrderTodo.pop();
+            postOrder.add(currentPostOrder);
         }
     }
-
 
 
     public void debugPrintResult()
