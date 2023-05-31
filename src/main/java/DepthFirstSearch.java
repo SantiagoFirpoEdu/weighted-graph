@@ -67,7 +67,6 @@ public class DepthFirstSearch
 
     public void debugPrintResult()
     {
-        //TODO: implement this
         //imprimir os arrais de visitados, antecessor, preordem e posordem.
         //preordem e posordem devem mostrar o caminho percorrido em pre e pos ordem;
 
