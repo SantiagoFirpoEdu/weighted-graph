@@ -25,5 +25,8 @@ public class Main
 
 
         GraphFromFile.writeGraphToFile(graph, "./testGraph");
+        WeightedGraph readGraph = GraphFromFile.readGraphFile("./testGraph");
+
+        System.out.printf("Read saved graph successfully: %s%n", readGraph.debugPrint());
     }
 }

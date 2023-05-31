@@ -81,6 +81,14 @@ public class WeightedGraph
         nodes.add(node);
     }
 
+    public String debugPrint()
+    {
+        return "WeightedGraph{" +
+                "adjacencyList=" + adjacencyList +
+                ", nodes=" + nodes +
+                '}';
+    }
+
     static class Edge
     {
         public int from;
@@ -91,6 +99,16 @@ public class WeightedGraph
         public int hashCode()
         {
             return Objects.hash(from, to, weight);
+        }
+
+        @Override
+        public String toString()
+        {
+            return "Edge{" +
+                    "from=" + from +
+                    ", to=" + to +
+                    ", weight=" + weight +
+                    '}';
         }
 
         @Override
